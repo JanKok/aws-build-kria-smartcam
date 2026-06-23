@@ -5,9 +5,9 @@
 set -e
 
 source "$(dirname "${BASH_SOURCE[0]}")/config.sh"
-source "$AWS_PATH/args.sh" "$@"
+source "$AWS_BUILD_UTILS/args.sh" "$@"
 
-"$AWS_PATH/launch.sh"
+"$AWS_BUILD_UTILS/launch.sh"
 
 INSTANCE_IP=$(cat "$STATE_DIR/instance-ip")
 
@@ -25,7 +25,7 @@ ssh -i "$SSH_KEY_PATH" "$REMOTE_USER@$INSTANCE_IP" \
   "git clone --recursive --branch $REPO_BRANCH $REPO_URL $REMOTE_SRC"
 
 echo "=== Stopping instance after setup ==="
-"$AWS_PATH/stop.sh"
+"$AWS_BUILD_UTILS/stop.sh"
 
 echo ""
 echo "Instance created. ID saved to $STATE_DIR/instance-id"
